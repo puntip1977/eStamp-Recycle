@@ -125,6 +125,7 @@ Deno.serve(async (req) => {
       })),
     });
   } catch (e) {
+    console.error("count-items error:", e);
     return jsonResponse({ error: e instanceof Error ? e.message : "นับจำนวนไม่สำเร็จ" }, 400);
   }
 });
