@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
+import { File } from 'expo-file-system';
 import { BigButton } from '../../components/BigButton';
 import { BigText } from '../../components/BigText';
 import { Screen } from '../../components/Screen';
@@ -59,7 +60,7 @@ export function CameraScreen({
         profile_id: profile.id,
       });
 
-      const fileData = await fetch(photo.uri).then((res) => res.arrayBuffer());
+      const fileData = await new File(photo.uri).arrayBuffer();
       const { error: uploadError } = await supabase.storage
         .from('photos')
         .uploadToSignedUrl(uploadInfo.path, uploadInfo.token, fileData, {
